@@ -1,7 +1,10 @@
 # UX patterns and solutions
 
 Patterns that held up in at least one plugin, with where to find a working
-implementation. Source plugins: GCC, O2T, OVC (see the README).
+implementation. Source plugins: GCC, O2T, OVC, WPE (see the README).
+
+The **preferred UI standard** is [ui-standard.md](ui-standard.md); where it
+and this file cover the same thing, the standard decides.
 
 ## Dialogs and confirmations
 

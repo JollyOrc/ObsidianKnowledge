@@ -24,6 +24,7 @@ holds for the environment it was measured in (mostly: M1 MacBook, macOS
 |---|---|
 | [obsidian-api.md](obsidian-api.md) | Obsidian API findings and pitfalls: vault and adapter, data.json, menus, modals, code blocks, links, workers and WASM, inter-plugin APIs, desktop-only features |
 | [problems.md](problems.md) | Problems that occurred, with root cause, fix and the SCAR they led to |
+| [ui-standard.md](ui-standard.md) | **The preferred UI standard** (the norm for every screen): rules for every screen, entry points, run dialog, selection tree, settings tab, progress tab, notices, a checklist for UI stories; layout after obsidian-webpage-export |
 | [ux-patterns.md](ux-patterns.md) | UX solutions: dialogs, confirmations, settings screens, warnings, notices, folder pickers, previews |
 | [tooling.md](tooling.md) | Architecture, build and bundling, tests, manual checks, scratch vaults, release, licences, public copies |
 | [workflow.md](workflow.md) | The development process we follow and where its rules live |
