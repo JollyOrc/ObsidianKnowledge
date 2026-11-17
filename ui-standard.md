@@ -25,7 +25,9 @@ Reference files for the layout (obsidian-webpage-export repository):
    event.keyCode !== 229`). One pure key function, tested (SCAR-013).
 2. **Destructive actions ask first.** The confirmation names its buttons
    ("Cancel", "Clear cache"; never "OK"), and the safe button has focus
-   (SCAR-014).
+   (SCAR-014): it is the **first** button in the DOM, because Obsidian focuses
+   the first focusable element after `onOpen`
+   ([obsidian-api.md](obsidian-api.md#modals)).
 3. **State of now.** Every control shows and acts on the current state;
    nothing needs a reopen to be right. Handlers read state when they run,
    not when they were drawn (SCAR-016).

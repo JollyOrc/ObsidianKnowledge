@@ -92,7 +92,13 @@ stated.
   composing:** `event.key === 'Enter' && !event.isComposing &&
   event.keyCode !== 229` (OVC `prompt-keys.ts`; same rule in O2T and GCC
   `dialogKey`). SCAR-013.
-- **Focus the safe button** in a destructive dialog (GCC, SCAR-014).
+- **Obsidian focuses the first focusable element of a modal after `onOpen`**
+  (`Modal.open()`, measured on 1.15.0, GCC M12 diagnosis): a `focus()` call in
+  `onOpen` is overridden within 0 to 1 ms. So **put the safe button first in
+  the DOM** (`[Cancel] [Replace]`) instead of focusing it. The focus ring only
+  shows after keyboard input; after a mouse click the focus is moved just the
+  same, invisibly, and Enter acts on it (GCC #58, SCAR-014). A test fake must
+  copy this behaviour or it cannot see the defect (SCAR-028).
 - **A one-off dialog does not write settings:** values typed for one run
   (export path, chosen note) must not leak into `data.json`, also not on
   Cancel (OVC 0.20.1).
