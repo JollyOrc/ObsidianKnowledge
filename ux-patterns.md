@@ -57,6 +57,12 @@ implementation. Source plugins: GCC, O2T, OVC (see the README).
   original block plus a warning; an unclosed fence is closed at the end of
   the note with a warning naming its line (OVC). An invalid code block stays
   visible with a notice above it (O2T).
+- **Every wait has a time limit** and reports instead of hanging: "Plugin
+  block <class> in <note> did not finish within N ms (<reason>)" (WPE).
+- **Reported text goes in via `textContent`**, so `<` and `&` show literally
+  (WPE; shared rule 6).
+- **Keep a behaviour users rely on as a setting** when replacing it (WPE
+  kept its fallback renderer as an option, SCAR-027).
 - **Graceful degradation:** a missing or disabled dependency plugin gives a
   coded warning and a reduced result, not an error (GCC).
 

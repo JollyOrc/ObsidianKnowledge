@@ -3,13 +3,14 @@
 Common knowledge for building Obsidian plugins: what the Obsidian API really
 does (as measured, not as assumed), the problems we ran into and why, and the
 UX, build, test and release solutions that held up. Harvested on 2026-11-17
-from three plugins:
+from four plugins:
 
 | Short | Plugin | Version read | Desktop only | minAppVersion |
 |---|---|---|---|---|
 | GCC | [Game Card Creator](https://github.com/JollyOrc/GameCardCreator) | 0.6.0 | yes | 1.6.6 |
 | O2T | Obsidian2Typst | 0.15.2 | yes | 1.5.0 |
 | OVC | Obsidian Vault Compiler | 0.24.0 | no | 1.0.0 |
+| WPE | obsidian-webpage-export, our fork (upstream base 1.9.2) | 1.10.1 | yes | 1.6.0 |
 
 Each entry names its source plugin and, where useful, the file in that
 plugin's repository, so a claim can be traced back to its evidence. A claim

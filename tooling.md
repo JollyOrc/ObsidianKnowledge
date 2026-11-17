@@ -120,6 +120,37 @@ OVC: `npm run deploy` copies to the fixture vault or `OBSIDIAN_PLUGIN_DIR`.
 5. The released `main.js` hash equals the one the manual check ran on
    (recorded in the SCAR ledger).
 
+## Headless Obsidian (WPE)
+
+- Docker with upstream's Dockerfile: Obsidian under xvfb, the plugin loaded
+  via `electron-injector`, a script (`tools/headless/export-report.mjs`) that
+  runs the exporter and writes its own run report (the injector panics after
+  the script on 1.14.5, so the console log is not usable).
+- The automated tests read only a generated fixture vault with a seeded
+  generator, third-party plugins fetched by a lock file with checksums, and
+  a tiny own fixture plugin that draws in steps.
+- **Limits:** the harness reproduced the content loss (about 1 run in 2) but
+  never the desktop freeze, and its Obsidian version differs from the
+  user's. A green headless run is evidence for that version and machine
+  only (SCAR-045, SCAR-032).
+- **DOM library for tests:** jsdom parses `<div>` inside `<p>` like
+  Chromium; happy-dom does not and was rejected. Count tags with a parser,
+  not a regex (SCAR-028).
+- Parallel integration runs gave runner RPC timeouts and incomparable
+  timings: run heavy tests serially with explicit limits (SCAR-030).
+
+## Maintaining a fork of an upstream plugin (WPE)
+
+- Keep upstream directories close to upstream so fixes still merge; new
+  code goes into new directories (`src/core/**`).
+- List every change to an upstream file in a "Changes to upstream files"
+  table (`docs/technical/dependencies.md`); record the upstream base commit.
+  The release gate reads it, so CI clones need `fetch-depth: 0`.
+- Lint upstream code against a recorded baseline count (excluding generated
+  files, SCAR-043), new code strictly.
+- Keep a security bump of a runtime dependency an explicit decision with its
+  diff size noted (SCAR-042).
+
 ## Private repository with a public copy (OVC)
 
 `development/scripts/prepare-github-publish.sh` rebuilds `github-publish/`

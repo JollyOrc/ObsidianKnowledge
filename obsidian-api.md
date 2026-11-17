@@ -1,7 +1,7 @@
 # Obsidian API: findings and pitfalls
 
 Source plugins: GCC (Game Card Creator), O2T (Obsidian2Typst), OVC (Obsidian
-Vault Compiler). Measured on Obsidian 1.15.0, macOS, Apple silicon unless
+Vault Compiler), WPE (obsidian-webpage-export fork). Measured on Obsidian 1.15.0, macOS, Apple silicon unless
 stated.
 
 ## Plugin structure
@@ -112,6 +112,43 @@ stated.
   registration (O2T, SCAR-016).
 - **An invalid block stays visible** as raw text with a notice above it
   (O2T); never an empty element.
+
+## Rendering a whole note to HTML (WPE)
+
+- **The reading view draws only the sections near the visible area.** In a
+  500 px window a 15-section note had 10 sections drawn; scrolling removes
+  sections scrolled past. Waiting for "all sections" therefore times out.
+  Growing the preview to a huge height fixed it headless but **froze the
+  desktop** (SCAR-045).
+- **Render off screen instead:** `MarkdownRenderer.render(app, markdown,
+  hostEl, sourcePath, component)` into an absolutely positioned host
+  (900 px wide, removed afterwards) draws every section and embed. The
+  `Component` must be `load()`ed before and `unload()`ed after; pass the
+  note's real path as `sourcePath` or relative links break
+  (`src/plugin/render-api/render-api.ts`). Measured on the desktop: 331 of
+  331 notes, no freeze, 40 s instead of 108 to 121 s.
+- **Copy rendered DOM with `cloneNode`, not `innerHTML`:** re-parsing HTML
+  moves block content out of `<p>` (a `<div>` inside a `<p>` is parsed out
+  by the HTML spec), which emptied embeds.
+- **Embeds fill asynchronously:** poll (50 ms) until no `.markdown-embed`
+  lacks content (no `.markdown-embed-content`, or one without text, svg or
+  img), at most 5 000 ms per note; what is still empty gets a placeholder
+  and a warning.
+- **Other plugins' post-processors and code-block renderers give no
+  completion signal.** "Block not empty" is the wrong test: a plugin may
+  insert a `<style>` first (a Dataview `dv.view` block held only its
+  `<style>` in 117 of 117 renders). Count a `block-language-*` element as
+  finished when it holds a node other than style, script, link, comment or
+  whitespace **and** a `MutationObserver` (subtree, attributes, text) sees no
+  change for 150 ms; overall limit 5 000 ms; at the limit one warning per
+  block, `no output` or `still changing` (`src/core/render/blocks.ts`). Lost
+  views went from 2 to 3 of 39 per export to 0; the waiting doubled page
+  writing time (27 s to 52 s).
+- **Measure each other plugin's behaviour:** a linker plugin's "link only
+  once" turned out to be per post-processor call, not per note
+  (`docs/technical/spike-virtual-linker.md`, SCAR-024).
+- **A running Obsidian overwrites `data.json`:** edit it by hand only with
+  Obsidian closed.
 
 ## Links, embeds, frontmatter (OVC)
 
