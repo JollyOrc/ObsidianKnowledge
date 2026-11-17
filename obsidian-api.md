@@ -98,6 +98,18 @@ stated.
   Cancel (OVC 0.20.1).
 - **Live values in dialogs:** a "resolved path" line must update as the user
   types (SCAR-016, OVC).
+- **A side panel beside a modal works:** a second `.modal` element inserted
+  into `containerEl` before `modalEl` (relative, z-index 1, 25em wide) shows
+  beside the dialog, scrolls, takes typing, and goes away with the dialog on
+  Escape, the X and a click outside (GCC M11, Obsidian 1.15.0).
+- **Obsidian's modal takes Escape first:** a `keydown` listener on a field in
+  that panel never saw Escape; the dialog closed anyway. Do not rely on a
+  field's own listener for Escape; Enter in such a field was not measured
+  (GCC M11).
+- **Opening a plugin's settings tab:** `app.setting.open()` then
+  `app.setting.openTabById('<plugin id>')` (private, not in the typings)
+  opens the tab (GCC M11, Obsidian 1.15.0). Reach it through a structural
+  type and feature-detect it.
 
 ## Markdown rendering
 
