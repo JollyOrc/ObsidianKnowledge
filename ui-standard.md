@@ -51,7 +51,7 @@ Offer the main action in every place a user looks for it:
 
 | Entry | Behaviour |
 |---|---|
-| Ribbon icon | Opens the run dialog |
+| Ribbon icon | Opens the run dialog; **or** (allowed variant, when users already rely on it) opens a menu whose **first item "Export…" opens the run dialog** |
 | Command "… using previous settings" | Runs at once with the saved selection and destination, no dialog; if something required is missing, a Notice says what to set |
 | Command "… current file using previous settings" | Runs for the active note; a Notice if none is open |
 | Command "Open … dialog" | Opens the run dialog |
@@ -66,6 +66,12 @@ Offer the main action in every place a user looks for it:
   the click (SCAR-022).
 - Keep a saved selection valid when notes move: update stored paths on
   `vault.on("rename")`.
+- Bringing an existing plugin in line never removes an entry users rely on
+  without saying so; it stays as a "using previous settings" entry or as
+  an allowed variant (SCAR-027).
+- **Progress tab or Notice:** a run that takes more than about 2 s on the
+  test machine (measured as a whole run) gets the progress tab (section
+  5); a shorter one reports by Notice.
 
 ## 2. The run dialog
 
