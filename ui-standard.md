@@ -73,7 +73,9 @@ Offer the main action in every place a user looks for it:
   an allowed variant (SCAR-027).
 - **Progress tab or Notice:** a run that takes more than about 2 s on the
   test machine (measured as a whole run) gets the progress tab (section
-  5); a shorter one reports by Notice.
+  5); a shorter one reports by Notice. When the same action can be short
+  or long (one note or a whole book), the tab may open **late**: only if
+  the run is still going after about 2 s (allowed variant, Obsidian2Typst).
 
 ## 2. The run dialog
 
@@ -112,7 +114,11 @@ Behaviour:
   selection also by **Save selection**. Cancel saves nothing.
 - The caller awaits a promise that `onClose` resolves with one result
   object, e.g. `{ canceled, pickedFiles, destination }`; no polling.
-- An overwrite of existing output asks first (rule 0.2).
+- An overwrite of existing output asks first (rule 0.2). Allowed variant:
+  a tool that re-exports its **own** output into a folder chosen for it
+  (the normal loop is export, look, export again) replaces its own files
+  without a question, and the destination line says they will be replaced
+  (Obsidian2Typst).
 
 ## 3. The selection tree
 
