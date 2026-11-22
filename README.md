@@ -55,3 +55,7 @@ behaviour, a measurement), it belongs here.
 - **Adding a lesson**: name the plugin, version and file it comes from, and
   the SCAR it relates to, if any. A new general failure mode goes to the
   scars repository first (its own rules), then gets linked here.
+
+## Licence
+
+Released into the public domain under [The Unlicense](LICENSE).
